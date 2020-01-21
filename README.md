@@ -1,32 +1,63 @@
-# zencode-lite
-zencode is a speedy html generation mid-language, it can extend a HTML from a simple description string. it is lite version, I call it zencode-lite.
+# emmetLite
 
-#usage
-Function zencode Usage :
+一个emmet和html互转的轻量级js工具集
 
- zencode is a html tag generator using a simplify pattern string, the reference can be found by searching "ZenCoding" or "Emmet" from web.
+# 特性
+- 完整的emmet语法支持
+- 添加了扩展语法，支持自定义默认元素、自定义标签名缩写、自定义属性缩写、自定义扩展属性（通过第三、四个参数）
+- emmet2html 仅含字符串操作，不含任何DOM操作，因此拥有极好的性能，可异步加载
+- emmet2html 仅 5.5KB，html2emmet 仅 3.1KB
 
-example :
+# 安装
+emmet2html:
+```html
+<script src="emmetLite.min.js"></script>
+```
+html2emmet:
+```html
+<script src="html2emmet.min.js"></script>
+```
 
-    zencode("div.block#c01>{click}+a[href=www.pchome.com.tw]{link}^span{to:$}*3")
-=>
+# 语法
+[here](./Syntax.md)
 
-    <div class="block" id="c01">click<a href="www.pchome.com.tw">link</a></div><span>to:1</span><span>to:2</span><span>to:3</span>
-
-#pattern :
--  **.** : class setter                                ex: `div.block`    => `<div class="block"></div>`
--  **#** : id setter                                   ex: `div#t_01`     => `<div id="t_01"></div>`
--  **>** : child setter                                ex: `div>span`     => `<div><span></span></div>`
--  **+** : sibling setter                              ex: `div+span`     => `<div></div><span></span>`
--  **^** : parent setter                               ex: `div>a^span`   => `<div><a></a></div><span></span>`
--  **[]** : attribute setter                           ex: `input[type=checkbox][checked]`
-                                                                   => `<input type="checkbox" checked>`
--  **{}** : plain text node                            ex: `div{text}`    => `<div>text</div>`
-                                                  ex: `div>{text}`   => `<div>text</div>`
--  __*__ : repeat for n times                          ex: `ol>li*3`      => `<ol><li></li><li></li><li></li></ol>`
--  **()** : group tags, use with *                     ex: `table>(tr>td)*3`
-                                                                   => `<table><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table>`
--  **$** : auto increase number, use with *            ex: `div#t_$$*3`   => `<div id="t_01"></div><div id="t_02"></div><div id="t_03"></div>`
--  **@** : auto increase number option, use with $     ex: `span{$@-5}*3` => `<span>5</span><span>4</span><span>3</span>`
-
-  2014 Author SEFI
+# 用法
+emmet2html:
+```js
+string Emmet(string s, [string indent = null], [function fabbr = (default function)], [object aabbr = (default config)])
+```
+参数：
+- `s`: emmet字符串
+- `indent`: 为空使用原始emmet格式，否则使用以`indent`为缩进单位的缩进格式
+- `fabbr`: 自定义缩写函数
+- `aabbr`: 自定义属性缩写表
+例如：
+```js
+Emmet(".a>p") //<div class="a"><p></p></div>
+Emmet(`!
+html
+  head
+    link:favicon
+  ~
+    h1{Hello world!}
+`,'  ')
+//<!DOCTYPE html><html><head><link rel="shortcut icon" type="image/x-icon" href="favicon.ico"></head><body><h1>Hello world!</h1></body></html>
+```
+html2emmet:（参数说明同上）
+```js
+string html2emmet(string s, [string indent = '\t'])
+// ex:
+html2emmet('<div><p></p></div>')
+//结果： div>p
+html2emmet('<html><head><link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /></head><body><h1>Hello world!</h1></body></html>',"\t")
+```
+结果：
+```
+htm
+	hd
+		link[rel="shortcut icon" ty=image/x-icon href=favicon.ico]
+	body
+		h1{Hello world!}
+```
+默认使用缩写，可通过编辑html2emmet.js里的缩写表来禁用缩写  
+配合模板引擎，能更好的玩耍哦~
