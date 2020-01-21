@@ -61,7 +61,8 @@ html
       </tr>
     </table>
   </body>
-</html>```
+</html>
+```
 7. 后置标签名和标签名替换：
 `[href=#]a` => `<a href="#"></a>`
 `b[href=#]a` => `<a href="#"></a>`
@@ -142,7 +143,8 @@ html
       </tr>
     </table>
   </body>
-</html>```
+</html>
+```
 7. post-tagname and tagname replacement:
 `[href=#]a` => `<a href="#"></a>`
 `b[href=#]a` => `<a href="#"></a>`
