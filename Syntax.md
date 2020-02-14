@@ -64,9 +64,9 @@ html
 </html>
 ```
 7. 后置标签名和标签名替换：
-`[href=#]a` => `<a href="#"></a>`
-`b[href=#]a` => `<a href="#"></a>`
-`[href=#]b a` => `<a href="#"></a>`
+`[href=#]a` => `<a href="#"></a>`  
+`b[href=#]a` => `<a href="#"></a>`  
+`[href=#]b a` => `<a href="#"></a>`  
 `[href=#t$]a*1 b+s+a*0` => `<a href="#t0"></a><s></s>`
 
 ## 扩展语法
@@ -75,9 +75,9 @@ html
 ex: `a[data-a=[[] data-b=[]]]{foo{1}}b[data-a=[] data-b=[]]{bar{2}` => `<a data-a="[[]" data-b="[]]">foo{1}</a><b data-a="[]" data-b="[]">bar{2</b>`
 `a[data-a=[ data-b=]]+b[data-a=] data-b=[]` => `<a data-a="[" data-b="]"></a><b data-a="]" data-b="["></b>`
 3. 支持多行注释(`*{ ... }`, `{ ... }*`)与单行注释（不包含+>^，位于行首，以空格结束），*0
-以下是错误写法：
-`Not a comment` => `<comment></comment>`
-`Not a comment.` => `<comment></comment>`
+以下是错误写法：  
+`Not a comment` => `<comment></comment>`  
+`Not a comment.` => `<comment></comment>`  
 `Not a comment.1` => `<comment class="1"></comment>`
 4. 不包含空格的属性值可省略引号，会自动添加双引号，单引号会被保留
 ex: `A comment img[src='1.webp' alt="foo bar" width=300](hr` => `<img src='1.webp' alt="foo bar" width="300"><hr>`
@@ -102,7 +102,7 @@ ex: `A comment img[src='1.webp' alt="foo bar" width=300](hr` => `<img src='1.web
 Different from official syntax
 ---
 1. Attributes sepearated by spaces, multiple '[...]' in a tag are not supported.
-ex: `tag#id.classes.separated.by.dots.and[attributes="sepearated by" spaces]` => `<tag class="classes separated by dots and" id="id" attributes="sepearated by" spaces></tag>`
+ex: `tag#id.classes.separated.by.dots.and[attributes="sepearated by" spaces]` => `<tag class="classes separated by dots and" id="id" attributes="sepearated by" spaces></tag>`  
 `a[href=#][data-b=b]` => `<a href="#][data-b=b"></a>`
 2. HTML tags not supported: `<h1>1</h1>` => `<h1><h1></h1></h1>`
 3. `(ul>.t$)(ul>.t$)*` => `<ul><li class="t$"></li></ul><ul><li class="t0"></li></ul>`
